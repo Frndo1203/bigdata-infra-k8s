@@ -1,0 +1,13 @@
+# Allow airflow-worker service account access for spark-on-k8s
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: airflow-spark-crb
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: spark-operator # created by spark-operator helm
+subjects:
+  - kind: ServiceAccount
+    name: airflow-worker
+    namespace: orchestrator
